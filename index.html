@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swong</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style type="text/css">
+    #container-n{
+      position: bottom;
+    }
+body {
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+#music-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.music-card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.music-card audio {
+  width: 200px;
+  height: auto;
+}
+
+.music-card .song-details {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.music-card .artist-details {
+  font-size: 16px;
+  color: #888;
+}
+
+.swipe-buttons {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  margin: 0 10px;
+  width: 100px;
+  height: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+button#swipe-left {
+  background-color: #ff6b6b;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+button#swipe-left:hover {
+  background-color: #ff4f4f;
+}
+
+button#swipe-right {
+  background-color: #75ca4a;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+button#swipe-right:hover {
+  background-color: #61b83c;
+}
+
+#chat-container {
+  display: none;
+  background-color: #f5f5f5;
+  padding: 20px;
+  width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#chat-log {
+  max-height: 200px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+#chat-log div {
+  margin-bottom: 10px;
+}
+
+#chat-log div:last-child {
+  margin-bottom: 0;
+}
+
+#chat-input {
+  display: flex;
+  align-items: center;
+}
+
+#chat-input input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+#chat-input button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #75ca4a;
+  color: white;
+  cursor: pointer;
+}
+
+#chat-input button:hover {
+  background-color: #61b83c;
+}
+
+.container .vine {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  background-color: #008000; 
+  z-index: -1;
+}
+@keyframes fall-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}.container:before,
+.container:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  background-color: #008000; 
+  z-index: -1;
+}
+
+.container:before {
+  left: -50px;
+  transform: skewX(-20deg) translateY(-50%); 
+}
+
+.container:after {
+  right: -50px;
+  transform: skewX(20deg) translateY(-50%); 
+}
+
+.container .vine {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  background-color: grey; 
+  z-index: -1;
+}
+
+.container .vine:nth-child(2) {
+  left: 20%;
+  transform: rotate(-45deg); 
+}
+
+.container .vine:nth-child(3) {
+  left: 50%;
+  transform: rotate(45deg); 
+}
+
+.container .vine:nth-child(4) {
+  right: 20%;
+  transform: rotate(-45deg); 
+}
+
+.container .vine:nth-child(5) {
+  right: 50%;
+  transform: rotate(45deg); 
+}
+
+.container .vine:before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  width: 100%;
+  height: 50px;
+  background-color: grey; 
+}
+
+.container .vine:after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  width: 100%;
+  height: 50px;
+  background-color: grey; 
+}
+.container:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 100px;
+  height: 100%;
+  background-color: #cccccc;
+  transform: skewX(-20deg);
+  z-index: -1;
+}
+
+.container:before::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 50px;
+  height: 50px;
+  background-color: grey; 
+    border-radius: 50%;
+  z-index: 1;
+}
+
+.container:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -50px;
+  width: 100px;
+  height: 100%;
+  background-color: #cccccc;
+  transform: skewX(20deg);
+  z-index: -1;
+}
+
+.container:after::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 50px;
+  height: 50px;
+  background-color: grey; 
+  border-radius: 50%;
+  z-index: 1;
+}
+
+#background-music {
+  width: 100%;
+}
+
+#background-music::-webkit-media-controls-panel {
+  background-color: grey;
+  border-radius: 5px;
+}
+
+#background-music::-webkit-media-controls-current-time-display,
+#background-music::-webkit-media-controls-time-remaining-display,
+#background-music::-webkit-media-controls-timeline,
+#background-music::-webkit-media-controls-seek-back-button,
+#background-music::-webkit-media-controls-seek-forward-button,
+#background-music::-webkit-media-controls-play-button,
+#background-music::-webkit-media-controls-mute-button,
+#background-music::-webkit-media-controls-volume-slider {
+  color: white;
+}
+
+#background-music::-webkit-media-controls-timeline {
+  background-color: black;
+  height: 5px;
+  border-radius: 2px;
+}
+
+body {
+  background-color: #f5f5f5;
+  background-image: linear-gradient(45deg, #ff4f4f, #75ca4a);
+  background-size: 400% 400%;
+  animation: backgroundAnimation 10s ease infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.ball {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: #ff4f4f;
+  border-radius: 50%;
+  animation: bounceAnimation 1s infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes bounceAnimation {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.8);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes moveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+    /* Styles pour l'encadré de téléphone */
+    .phone-container {
+      position: relative;
+      width: 300;
+      height: 500px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .phone-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 95%;
+      background-color: #000;
+      border-radius: 15px;
+    }
+
+    .phone-container::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      background-color: #000;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .phone-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-color: #f5f5f5;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Animation de déplacement du contenu */
+    @keyframes moveAnimation {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100px);
+      }
+    }
+  .phone-frame {
+      bac
+
+kground-image: url('phone-frame.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content {
+      width: 80%;
+      height: 80%;
+      background-color: white;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+      .phone-frame {
+      position: relative;
+      width: 300px;
+      height: 600px;
+      margin: 0 auto;
+      background-image: url('phone-frame.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-color: #ffffff;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+     #classement {
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      background-color: #f1f1f1;
+      font-family: Arial, sans-serif;
+    }
+    #pseudo {
+  display: inline-block;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#pseudo::placeholder {
+  color: #999;
+}
+
+#pseudo:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 5px #66afe9;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+ /* Style des conteneurs */
+    .container {
+        margin-bottom: 10px;
+    }
+
+    /* Style des boutons */
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+     /* Conteneur principal */
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Ajustez la hauteur selon vos besoins */
+    }
+
+    /* Style des boutons */
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+  </style>
+</head>
+<body>
+  <diV class="container">
+     <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+         <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+         <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+    <div class="vine"></div>
+  </div>
+      <div id="music-container">
+    <div class="music-card">
+
+      <audio id="background-music" controls autoplay>
+         
+    
+        <source src="" type="audio/mpeg">
+      </audio>
+      <div class="song-details"></div>
+      <div class="artist-details"></div>
+      <div class="swipe-buttons">
+        <button id="swipe-left">PASS</button>
+        <button id="swipe-right">SMASH</button>
+      </div></div>
+      </div>
+</div>
+  </div>
+  <div id="classement">
+
+    <ul id="liste-classement"></ul>
+  </div>
+  <div class="main-container">
+  <div id="chat-container">
+    <div id="chat-log"></div>
+    <div id="chat-input">
+      <input type="text" id="message-input" placeholder="Type your message...">
+          <button id="send-button">Send</button><br><br><br><br>
+<div class="chat-container">
+</div>
+         <h4></h4>
+         <br><br>
+
+    <script>
+        // Fonction pour afficher la boîte de dialogue et récupérer le pseudo
+        function choisirPseudo() {
+            var pseudo = prompt("Veuillez entrer votre pseudo :");
+            if (pseudo !== null && pseudo.trim() !== "") {
+                // Afficher le pseudo choisi
+                var pseudoElement = document.getElementById("pseudo");
+                pseudoElement.textContent = pseudo;
+            }
+        }
+    </script><br><br>
+<div class="container-n">
+    <button onclick="choisirPseudo()">PSEUDO</button>
+</div>
+<div class="container-n">
+    <p>Votre pseudo est : <span id="pseudo"></span></p>
+</div>
+
+  </div>
+      </div>
+  </div>
+  
+
+
+
+
+  
+  <script>
+
+  // Récupérer les messages du stockage local s'ils existent
+  var chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+  function choisirPseudo() {
+    var pseudo = prompt("Veuillez entrer votre pseudo :");
+    if (pseudo !== null && pseudo.trim() !== "") {
+      var pseudoElement = document.getElementById("pseudo");
+      pseudoElement.textContent = pseudo;
+    }
+  }
+
+  function sendMessage() {
+    var messageInput = document.getElementById("messageInput");
+    var message = messageInput.value;
+    var pseudo = document.getElementById("pseudo").textContent;
+
+    // Ajouter le message à l'objet chatMessages
+    chatMessages.push({ sender: pseudo, message: message });
+
+    // Sauvegarder les messages dans le stockage local
+    localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+
+    // Afficher le message dans le chat
+    receiveMessage(pseudo, message);
+
+    // Effacer le champ de saisie du message
+    messageInput.value = "";
+  }
+
+  function receiveMessage(sender, message) {
+    var messageElement = document.createElement('div');
+    messageElement.textContent = sender + ': ' + message;
+    chatLog.appendChild(messageElement);
+  }
+
+  // Afficher les messages existants au chargement de la page
+  chatMessages.forEach(function (chat) {
+    receiveMessage(chat.sender, chat.message);
+  });
+  
+    document.addEventListener('DOMContentLoaded', function() {
+      const swipeLeftButton = document.getElementById('swipe-left');
+      const swipeRightButton = document.getElementById('swipe-right');
+      const backgroundMusic = document.getElementById('background-music');
+      const musicContainer = document.getElementById('music-container');
+      const chatContainer = document.getElementById('chat-container');
+      const chatLog = document.getElementById('chat-log');
+      const messageInput = document.getElementById('message-input');
+      const sendButton = document.getElementById('send-button');
+
+      const musics = [
+        {
+          title: 'SUPERMZN',
+          artist: 'OKA',
+          source: 'https://www.auboutdufil.com/get.php?fla=https://archive.org/download/martijn-schmit-vacs-in-the-morning/MartijnSchmit-VacsInTheMorning.mp3'
+        },
+        {
+          title: 'Gros caca',
+          artist: 'OKOK',
+          source: 'https://www.auboutdufil.com/get.php?fla=https://archive.org/download/zero-project-whispering-iceland/ZeroProject-WhisperingIceland.mp3'
+        },
+          {
+
+          title: 'SPID1RMZN',
+          artist: 'OloK',
+          source: 'https://www.auboutdufil.com/get.php?fla=https://archive.org/download/ross-bugden-notturno/RossBugden-Notturno.mp3'
+        }
+      ];
+
+      let currentMusicIndex = 0;
+      let chatPartners = [];
+
+      function playMusic(index) {
+        const music = musics[index];
+        backgroundMusic.src = music.source;
+        musicContainer.querySelector('.song-details').textContent = music.title;
+        musicContainer.querySelector('.artist-details').textContent = music.artist;
+        backgroundMusic.play();
+      }
+
+      function showChat() {
+        chatContainer.style.display = 'block';
+      }
+
+      function hideChat() {
+        chatContainer.style.display = 'none';
+      }
+
+      function sendMessage(message) {
+        chatPartners.forEach(partner => {
+          receiveMessage(partner, '' + message);
+        });
+
+
+      }
+
+function receiveMessage(sender, message) {
+    var pseudoElement = document.getElementById("pseudo").textContent;
+    var messageElement = document.createElement('div');
+    messageElement.textContent = pseudoElement + ': ' + sender + ' ' + message;
+    chatLog.appendChild(messageElement);
+}
+
+      function handleSwipeLeft() {
+        currentMusicIndex = (currentMusicIndex + 1) % musics.length;
+        playMusic(currentMusicIndex);
+        chatPartners = []; 
+        hideChat();
+      }
+
+      function handleSwipeRight() {
+        chatPartners.push(''); 
+        showChat();
+      }
+
+      swipeLeftButton.addEventListener('click', handleSwipeLeft);
+      swipeRightButton.addEventListener('click', handleSwipeRight);
+
+      sendButton.addEventListener('click', function() {
+        const message = messageInput.value;
+        if (message.trim() !== '') {
+          sendMessage(message);
+          messageInput.value = '';
+        }
+      });
+
+      messageInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          sendButton.click();
+        }
+      });
+
+      playMusic(currentMusicIndex);
+    });
+const audioElement = document.getElementById('background-music');
+const ballElement = document.querySelector('.ball');
+
+audioElement.addEventListener('play', () => {
+
+  ballElement.style.animationPlayState = 'running';
+});
+
+audioElement.addEventListener('pause', () => {
+
+  ballElement.style.animationPlayState = 'paused';
+});
+
+
+
+    
+
+  
+  </script>
+</body>
+</html>
